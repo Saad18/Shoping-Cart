@@ -23,12 +23,20 @@ export const removeFromCart = (id) => ({
   payload: id,
 });
 
-export const incrementItemQuantity = (id) => ({
-  type: INCREMENT_ITEM_QUANTITY,
-  payload: id,
-});
+export const incrementItemQuantity = (id) => {
+  return {
+    type: INCREMENT_ITEM_QUANTITY,
+    payload: {
+      id,
+    },
+  };
+};
 
-export const decrementItemQuantity = (id) => ({
-  type: DECREMENT_ITEM_QUANTITY,
-  payload: id,
-});
+export const decrementItemQuantity = (id) => {
+  return {
+    type: DECREMENT_ITEM_QUANTITY,
+    payload: {
+      id,
+    },
+  };
+};

@@ -27,9 +27,9 @@ const reducer = (state = initialState, action) => {
     case ADD_TO_CART:
       const productId = action.payload.id;
       const product = state.products.find((p) => p.id === productId);
-      const existingProduct = state.cart.find((item) => item.id === productId);
-      if (existingProduct) {
-        const updateCart = state.cart.map((item) => {
+      const existingCartItem = state.cart.find((item) => item.id === productId);
+      if (existingCartItem) {
+        const updatedCart = state.cart.map((item) => {
           if (item.id === productId) {
             return {
               ...item,
@@ -39,7 +39,7 @@ const reducer = (state = initialState, action) => {
           return item;
         });
 
-        const updateProducts = state.products.map((p) => {
+        const updatedProducts = state.products.map((p) => {
           if (p.id === productId) {
             return {
               ...p,
@@ -50,12 +50,12 @@ const reducer = (state = initialState, action) => {
         });
         return {
           ...state,
-          products: updateProducts,
-          cart: updateCart,
+          products: updatedProducts,
+          cart: updatedCart,
         };
       } else {
         const newCartItem = { ...product, quantity: 1 };
-        const updatedCart = { ...state.cart, newCartItem };
+        const updatedCart = [...state.cart, newCartItem];
 
         const updatedProducts = state.products.map((p) => {
           if (p.id === productId) {
